@@ -255,24 +255,6 @@ ctr = 0
 o_score = 0
 x_score = 0
 
-music_ctr = 0
-
-music_on = pyglet.resource.image('on.png')
-music_on.width = 60
-music_on.height = 60
-music_on_sprite = pyglet.sprite.Sprite(music_on)
-music_on_sprite.anchor_y = music_on.height/2
-music_on_sprite.x = window_width/5 - 65
-music_on_sprite.y = window_height*(9/10)
-
-music_off = pyglet.resource.image('off.png')
-music_off.width = 45
-music_off.height =45
-music_off_sprite = pyglet.sprite.Sprite(music_off)
-music_off_sprite.anchor_y = music_off.height/2
-music_off_sprite.x = window_width/5 - 60
-music_off_sprite.y = window_height*(9/10) + 10
-
 X_image = pyglet.resource.image('x.png')
 X_image.width = Image_width
 X_image.height = Image_height
@@ -345,7 +327,6 @@ confirm = False
 ai_level = None
 temporary = []
 loss = False
-play_music = True
 
 
 
@@ -776,16 +757,6 @@ def top_five():
     number_5.draw()
     ok_leaderboard.draw()
 
-def have_music():
-    global play_music
-    music = pyglet.resource.media('music2.mp3', streaming=False)
-    if play_music == True:
-        while True:
-            music.play()
-    else:
-        while False:
-            pass
-
 def GAMEOVER():
     global grid
     global someone_won
@@ -797,26 +768,12 @@ def GAMEOVER():
     cont = False
     start()
 
-def music():
-    global play_music
-    music_label = pyglet.text.Label('Music: ',
-                                    font_size=20,
-                                    x=5, y=window_height*(19/20),
-                                    anchor_y='center')
-    if music_ctr % 2 == 0:
-        music_off_sprite.draw()
-        play_music = False
-    else:
-        music_on_sprite.draw()
-        play_music = True
-    music_label.draw()
-
 import sys
 class Shape(pyglet.window.Window):
     def __init__(self,*args,**kwargs):
         super(Shape,self).__init__(*args,**kwargs)
-    def draw_square(self):
-        pyglet.graphics.draw(4, pyglet.gl.GL_SQUARE_NV, ('v2i', (100,100,100,100)))
+    def draw_triangle(self):
+        pyglet.graphics.draw(3, pyglet.gl.GL_TRIANGLES, ('v2i', (365,275,380,305,395,275)))
     def on_draw(self):
         sys.stdout.flush()
-        self.draw_square()
+        self.draw_triangle()
